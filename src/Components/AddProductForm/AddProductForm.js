@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import './AddProductForm.css';
 
 function AddProductForm({ onAddProduct }) {
-  
   const [newProduct, setNewProduct] = useState({
     image: '',
     title: '',
@@ -11,6 +10,7 @@ function AddProductForm({ onAddProduct }) {
     price: ''
   });
 
+  const [message, setMessage] = useState('');
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,63 +19,90 @@ function AddProductForm({ onAddProduct }) {
       [name]: value,
     }));
   };
-
   
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const imageURL = URL.createObjectURL(file);
-      setNewProduct((prevProduct) => ({
-        ...prevProduct,
-        image: imageURL,
-      }));
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setNewProduct((prevProduct) => ({
+          ...prevProduct,
+          image: reader.result,
+        }));
+      };
+      reader.readAsDataURL(file);
     }
   };
-
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddProduct(newProduct); 
+    onAddProduct(newProduct);
+    setMessage('Товар успешно добавлен!');
+    
+    // Очищаем форму
     setNewProduct({
       image: '',
       title: '',
       description: '',
       price: ''
     });
+    
+    // Очищаем сообщение через 3 секунды
+    setTimeout(() => {
+      setMessage('');
+    }, 3000);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="product-form">
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleImageUpload}
-        required
-      />
-      <input
-        type="text"
-        name="title"
-        placeholder="Название товара"
-        value={newProduct.title}
-        onChange={handleInputChange}
-        required
-      />
-      <textarea
-        name="description"
-        placeholder="Описание товара"
-        value={newProduct.description}
-        onChange={handleInputChange}
-      ></textarea>
-      <input
-        type="text"
-        name="price"
-        placeholder="Цена товара"
-        value={newProduct.price}
-        onChange={handleInputChange}
-        required
-      />
-      <button type="submit">Добавить товар</button>
-    </form>
+    <div className="add-product-container">
+      <h2>Добавление нового товара</h2>
+      <form onSubmit={handleSubmit} className="product-form">
+        <div className="form-group">
+          <label>Изображение:</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label>Название товара:</label>
+          <input
+            type="text"
+            name="title"
+            value={newProduct.title}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label>Описание:</label>
+          <textarea
+            name="description"
+            value={newProduct.description}
+            onChange={handleInputChange}
+          ></textarea>
+        </div>
+        
+        <div className="form-group">
+          <label>Цена:</label>
+          <input
+            type="text"
+            name="price"
+            value={newProduct.price}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        
+        <button type="submit">Добавить товар</button>
+      </form>
+      
+      {message && <div className="success-message">{message}</div>}
+    </div>
   );
 }
 

@@ -10,10 +10,10 @@ function ProductCard({ image, title, description, price }) {
         <div className="image-placeholder">📷</div>
       )}
       <div className="product-info">
-        <h3>{title}</h3>
+        <h3>{title || 'Без названия'}</h3>
         {description && <p>{description}</p>}
-        <div className="price">{price}</div>
-        <button className="add-to-cart">Добавить в корзину</button>
+        <div className="price">{price ? `${price} ₽` : 'Цена не указана'}</div>
+        <button className="add-to-cart">В корзину</button>
       </div>
     </div>
   );
