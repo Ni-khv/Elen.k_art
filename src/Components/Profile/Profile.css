@@ -1,0 +1,78 @@
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background-color: #f9eeda;
+    padding: 20px;
+}
+
+.profile-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+.profile-box h2 {
+    text-align: center;
+    color: #4a2c2a;
+    margin-bottom: 30px;
+    font-family: "Playfair Display", serif;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info-group label {
+    color: #4a2c2a;
+    font-weight: 500;
+}
+
+.info-group p {
+    color: #666;
+    font-size: 16px;
+    padding: 10px;
+    background-color: #f9eeda;
+    border-radius: 5px;
+    margin: 0;
+}
+
+.admin-button {
+    background-color: #4a2c2a;
+    margin-bottom: 10px;
+}
+
+.admin-button:hover {
+    background-color: #b36363;
+}
+
+.logout-button {
+    background-color: #b36363;
+}
+
+.logout-button:hover {
+    background-color: #4a2c2a;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
